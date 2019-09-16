@@ -8,10 +8,10 @@
 <%= t.label :content %>
 <%= t.text_area :content %>
 Existing Category:
-<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+<%= t.collection_check_boxes :category_ids, Category.all, :id, :name %>
 New Category:
-<%= f.fields_for :categories, post.categories.build do |cat|%>
+<%= t.fields_for :categories, post.categories.build do |cat|%>
   <%= cat.text_field :name%>
   <% end %>
-<%= f.submit %>
+<%= t.submit %>
 <% end %>
