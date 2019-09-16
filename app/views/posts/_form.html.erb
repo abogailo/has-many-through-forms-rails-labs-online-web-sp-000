@@ -14,8 +14,8 @@ Existing Category:
 New Category:
 
 <%= t.fields_for :categories, post.categories.build do |cat|%>
-  <%= cat.text_field :name%>
+<%= cat.text_field :name%>
 
-  <% end %>
+<% end %>
 <%= t.submit %>
 <% end %>
