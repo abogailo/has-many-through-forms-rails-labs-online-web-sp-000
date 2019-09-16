@@ -25,8 +25,9 @@ User Comments:
 </ul>
 
 Comment:
-<%= form_for @post.comments.build do |f| %>
+<%= form_for @post do |f| %>
   <%= f.hidden_field :post_id %>
+  <%= f.text_area :content %>
   <p>
     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "New User" %>
   </p>
