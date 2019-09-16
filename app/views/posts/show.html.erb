@@ -25,19 +25,16 @@ User Comments:
 </ul>
 
 <h3>Comment:</h3>
-<%= form_for @post do |f| %>
-  <div>
-    <%= f.label "Content" %>
-    <%= f.text_area :content %>
-  </div>
-
-  <div>
-    <%= f.label "User" %>
-    <%= f.collection_check_boxes :user_ids, User.all, :id, :username %>
-      <%= f.fields_for :users do |users_fields| %>
-        <%= users_fields.text_field :username %>
-      <% end %>
-  </div>
+<%= form_for @comment do |f| %> <br>
+  Select User:
+  <br><%= f.collection_select(:user_id, User.all, :id, :username, include_blank: 'New User') %> <br>
+  Create New User: <br>
+  <%= f.fields_for :user, @comment.build_user do |user_fields| %>
+    <%= user_fields.text_field :username %> <br>
+  <% end %>
+  <h3 style="margin-bottom: 0">Comment: </h3>
+   <%= f.text_area :content %> <br>
+  <%= f.hidden_field :post_id, :value => @post.id %> 
 
   <%= f.submit %>
 <% end %>
