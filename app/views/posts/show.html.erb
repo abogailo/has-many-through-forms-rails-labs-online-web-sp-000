@@ -26,14 +26,12 @@ User Comments:
 
 Comment:
 <%= form_for @post do |f| %>
-  <%= f.hidden_field :post_id %>
   <%= f.text_area :content %>
   <p>
     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "New User" %>
   </p>
 
   <%= f.fields_for :user, User.new do |user_fields| %>
-    <%= user_fields.label :username %>
     <%= user_fields.text_field :username %>
   <% end %>
 
