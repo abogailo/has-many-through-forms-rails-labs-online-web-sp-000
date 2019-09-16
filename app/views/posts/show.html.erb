@@ -1,21 +1,32 @@
+<h1> <%= @post.title %> </h1>
 
-<h2><%= @post.title %></h2>
-<%= @post.content %>
-<p><strong>Categories:</strong>
-<ul><% @post.categories.each do |category| %>
-    <%= category.name %>,
-<% end %></ul></p>
+Categories:
+<ul> <% @post.categories.each do |category| %>
+<li> <%= category.name %></li>
+<% end %>
+</ul>
+Content: <%= @post.content %> <br> <br>
 
-<p><strong>Comments:</strong></p>
-<ul><% @post.comments.each do |comment| %>
-    <li><%= comment.user_username %> says: <%= comment.content %></li>
-<% end %></ul>
-
-<p><strong>Commenters:</strong></p>
-<ul><% @post.unique_user_comments.each do |user| %>
-    <li><%= link_to user.username, user_path(user) %></li>
+Comments:
+<ul> <% @post.comments.each do |comment| %>
+<li> <%= comment.content %> </li>
 <% end %>
 </ul>
 
-<p><strong>Submit a Comment:</strong></p>
-<%= render '/comments/form', comment: Comment.new %>
+Users who have commented:
+<ul><% @post.users.distinct.each do |user| %>
+<li> <%= link_to user.username, user_path(user)%> </li>
+<%end%>
+</ul>
+<h2> New Comment </h2>
+<%= form_for @post.comments.build do |comment| %>
+<%= comment.hidden_field :post_id %>
+Content: <%= comment.text_area :content %> <br> <br>
+Existing User: <%= comment.collection_select :user_id, User.all, :id, :username, include_blank: "New User"%> <br> <br>
+New User:
+<%= fields_for :user, User.new do |user| %>
+  <br><%= user.label :username%>
+  <%= user.text_field :username %> <br> <br>
+  <% end %>
+<%= comment.submit %>
+<%end%> 
