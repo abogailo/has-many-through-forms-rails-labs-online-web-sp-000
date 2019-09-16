@@ -24,21 +24,20 @@ User Comments:
       <%end%>
 </ul>
 
-Comment:
+<h3>Comment:</h3>
 <%= form_for @post do |f| %>
-  <%= f.text_area :content %>
-  <p>
-    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "New User" %>
-  </p>
-
-  <%= f.fields_for :user, User.new do |user_fields| %>
-    <%= user_fields.text_field :username %>
-  <% end %>
-
-  <p>
-    <%= f.label :content, "New Comment" %><br>
+  <div>
+    <%= f.label "Content" %>
     <%= f.text_area :content %>
-  </p>
-  <br/>
+  </div>
+
+  <div>
+    <%= f.label "User" %>
+    <%= f.collection_check_boxes :user_ids, User.all, :id, :username %>
+      <%= f.fields_for :users do |users_fields| %>
+        <%= users_fields.text_field :username %>
+      <% end %>
+  </div>
+
   <%= f.submit %>
 <% end %>
