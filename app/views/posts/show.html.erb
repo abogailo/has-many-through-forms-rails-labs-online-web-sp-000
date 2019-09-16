@@ -1,6 +1,6 @@
 Title:
 
-<%= @post.title %> 
+<%= @post.title %>
 
 Content:
 
@@ -18,10 +18,10 @@ Comments:
 <% end %>
 </ul>
 
-:
-<ul><% @post.users.distinct.each do |user| %>
-<li> <%= link_to user.username, user_path(user)%> </li>
-<%end%>
+User Comments:
+<ul>  <% @post.users.distinct.each do |user| %>
+<li>  <%= link_to user.username, user_path(user)%> </li>
+      <%end%>
 </ul>
 <h2> New Comment </h2>
 <%= form_for @post.comments.build do |f| %>
